@@ -19,12 +19,12 @@ const model = db.define('Curso', {
     allowNull: false
   },
   duracao_meses: {
-    type: DataTypes.TINYINT(1),
+    type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: 6
   },
   carga_horaria: {
-    type: DataTypes.TINYINT(1),
+    type: DataTypes.TINYINT,
     allowNull: false,
     defaultValue: 80
   },
