@@ -1,5 +1,6 @@
 'use strict';
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -9,11 +10,16 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     return queryInterface.addColumn(
-      'usuarios', // nome da tabela
-      'data-nasc', // nome do campo
+      'alunos',   // nome da tabela
+      'turma_id',   // nome do novo campo
       {
-        type: Sequelize.DATE,
-        allowNull: false // Se houvessem registros na tabela, não poderiamos usar o allowNull
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'turmas',   // Nome da tabela referenciada
+          key: 'id'          // Chave primária da tabela referenciada
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       }
     )
   },
@@ -26,8 +32,8 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     return queryInterface.removeColumn(
-      'usuarios',
-      'data_nasc'
+      'alunos',   // nome da tabela
+      'turma_id'
     )
   }
 };

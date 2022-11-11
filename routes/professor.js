@@ -1,13 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const controller = require("../controllers/professor");
-const verifToken = require("../lib/verif_token");
+const express = require('express');
 
-router.post('/', verifToken, controller.create);
-router.get('/', verifToken, controller.retrieve);
-router.get('/:id', verifToken, controller.retrieveOne);
-router.patch('/:id', verifToken, controller.update);
-router.delete('/:id', verifToken, controller.delete);
+const router = express.Router()
+const controller = require('../controllers/professor')
 
+router.post('/', controller.create);
 
-module.exports = router;
+router.get('/', controller.retrieve);
+
+router.get('/:id', controller.retriveOne);
+
+router.patch('/:id', controller.update)
+
+router.delete('/:id', controller.delete)
+
+module.exports = router

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../controllers/curso')
+const controller = require('../controllers/turma')
 const verifToken = require('../lib/verif_token')
 
 router.post('/', /* /* verifToken, */controller.create)

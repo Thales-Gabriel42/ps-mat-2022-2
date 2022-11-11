@@ -13,27 +13,27 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "cursos",
-          key: "id"
+          model: 'cursos',
+          key: 'id'
         }
       },
       professor_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "professores",
-          key: "id"
+          model: 'professores',
+          key: 'id'
         }
       },
       nome: {
         type: Sequelize.STRING(30),
-        allowNull: false
+        allowNull: false,
       },
       dia_semana: {
         type: Sequelize.TINYINT,
         allowNull: false,
-        min: 1, // domingo
-        max: 7 // sábado
+        min: 1,  // domingo
+        max: 7   // sábado
       },
       horario_ini: {
         type: Sequelize.TIME,

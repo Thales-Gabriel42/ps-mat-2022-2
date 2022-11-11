@@ -1,4 +1,4 @@
-const { Curso, Turma } = require('../models')
+const { Turma, Curso, Professor, Aluno } = require('../models')
 
 const controller = {}       // Objeto vazio
 
@@ -13,7 +13,7 @@ const controller = {}       // Objeto vazio
 
 controller.create = async(req, res) => {
     try {
-        await Curso.create(req.body)
+        await Turma.create(req.body)
         // HTTP 201: Created
         res.status(201).end()
     }
@@ -26,8 +26,12 @@ controller.create = async(req, res) => {
 
 controller.retrieve = async (req, res) => {
     try {
-        const result = await Curso.findAll({
-            include: { model: Turma, as: 'turmas' }
+        const result = await Turma.findAll({
+            include: [
+                { model: Curso, as: 'curso' },
+                { model: Professor, as: 'professor' },
+                { model: Aluno, as: 'alunos' }
+            ]
         })
         // HTTP 200: OK (implícito)
         res.send(result)
@@ -41,7 +45,7 @@ controller.retrieve = async (req, res) => {
 
 controller.retrieveOne = async (req, res) => {
     try {
-        const result = await Curso.findByPk(req.params.id)
+        const result = await Turma.findByPk(req.params.id)
 
         if(result) {
             // HTTP 200: OK (implícito)
@@ -62,7 +66,7 @@ controller.retrieveOne = async (req, res) => {
 controller.update = async (req, res) => {
     //console.log('==============>', req.params.id)
     try {
-        const response = await Curso.update(
+        const response = await Turma.update(
             req.body, 
             { where: { id: req.params.id } }
         )
@@ -86,7 +90,7 @@ controller.update = async (req, res) => {
 
 controller.delete = async (req, res) => {
     try {
-        const response = await Curso.destroy(
+        const response = await Turma.destroy(
             { where: { id: req.params.id } }
         )
 

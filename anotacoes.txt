@@ -1,0 +1,79 @@
+ADM
+Usuario: thales.lima13@hotmail.com
+senha: senhateste
+30/09: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tZSI6IlRoYWxlcyBMaW1hIiwiYWRtaW4iOnRydWUsImRhdGFfbmFzYyI6IjIwMDEtMDgtMjkiLCJpYXQiOjE2NjQ1NDM4NzgsImV4cCI6MTY2NDU3MjY3OH0.YY43p4sGMNKr4CXSnGkoC2BRF-ZxtDJS8pbw3_QRRLM
+
+Não-ADM
+Usuario: RogerR@email.com
+senha: pintinhoRoger@
+30/09: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tZSI6IlJvZ2VyIFJlc3QiLCJhZG1pbiI6ZmFsc2UsImRhdGFfbmFzYyI6IjE5OTQtMDQtMDQiLCJpYXQiOjE2NjQ1NDQ0MzQsImV4cCI6MTY2NDU3MzIzNH0.2j2yboP8TsnYDh_fIvmIFr-tHxrUntNO0R5yWv2sbPU
+
+Mudar o token (fazer login) sempre antes de fazer os GET POST e etc, e colocar o token lá
+
+Para criar um novo usuario temos que passar tudo, porém o certo seria apenas o nome, email, data_nasc e senha (E O TOKEN ESPECIFICADO)
+(e não hash_senha) direto, no back seria feita a conversão hash e será passado pelo backend no controller usuario
+
+{
+  "nome": "Gustavo",
+  "data_nascimento": "2001-07-21",
+  "cpf": "789.147.963-82",
+  "formacao": "Física, Direito",
+  "valor_hora_aula": 45.00,
+  "email": "gustavinho_extreme@hotmail.com"
+}
+
+
+P1 Errei os defaultValue e talvez o TINYINT
+
+npx sequelize-cli model:generate --name Turma --attributes id:integer,curso_id:integer,professor_id:integer,nome:string,dia_semana:tinyint,horario_ini:time,horario_fim:time,data_ini:dateonly,data_fim:dateonly
+
+npx sequelize-cli migration:generate --name drop-turma-alunos
+
+MODEL DA Turma
+id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
+    curso_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: "cursos",
+        key: "id"
+      }
+    },
+    professor_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: "professores",
+        key: "id"
+      }
+    },
+    nome: {
+      type: Sequelize.STRING(30),
+      allowNull: false
+    },
+    dia_semana: {
+      type: Sequelize.TINYINT,
+      allowNull: false,
+      min: 1, // domingo
+      max: 7 // sábado
+    },
+    horario_ini: {
+      type: Sequelize.TIME,
+      allowNull: false
+    },
+    horario_fim: {
+      type: Sequelize.TIME,
+      allowNull: false
+    },
+    data_ini: {
+      type: Sequelize.DATEONLY,
+      allowNull: false
+    },
+    data_fim: {
+      type: Sequelize.DATEONLY
+    }

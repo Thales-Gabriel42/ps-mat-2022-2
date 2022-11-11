@@ -1,84 +1,96 @@
-const Professor = require("../models/professor");
+const {Professor, Turma} = require('../models');
 
-const controller = {};
+const controller = {}
+
 
 controller.create = async(req, res) => {
     try{
-        await Professor.create(req.body);
+        await Professor.create(req.body)
+        //HTTP 201: Created
         res.status(201).end();
     }
-    catch(error){
-        console.error(error);
-        res.status(500).send(error);
+    catch(error) {
+        console.error(error)
+        // HTTP 500: Internal Server Error
+        res.status(500).send(error)
     }
 }
 
-controller.retrieve = async(req, res) => {
-    try{
-        const result = await Professor.findAll();
-        res.send(result);
-    }
-    catch(error){
-        console.error(error);
-        res.status(500).send(error);
-    }
-}
+controller.retriveOne = async (req, res) => {
 
-controller.retrieveOne = async(req, res) => {
-    try{
+    try {
         const result = await Professor.findByPk(req.params.id);
+        // HTTP 200: OK (implícito)
+        !result && res.status(404).end;
+        res.send(result)
 
-        if(result) {
-            res.send(result)
-        }
-        else {
-            res.status(404).end()
-        }
+    } catch(error) {
+        console.error(error)
+        // HTTP 500: Internal Server Error
+        res.status(500).send(error)
     }
-    catch(error){
-        console.error(error);
-        res.status(500).send(error);
+
+}
+
+controller.retrieve = async (req, res) => {
+    try {
+        const result = await Professor.findAll({
+            include: [
+                { model: Turma, as: 'turmas' }
+            ]
+        })
+        // HTTP 200: OK (implícito)
+        res.send(result)
+    }
+    catch(error) {
+        console.error(error)
+        // HTTP 500: Internal Server Error
+        res.status(500).send(error)
     }
 }
 
-controller.update = async(req, res) => {
-    try{
+controller.update = async (req, res) =>{
+
+    try {
         const response = await Professor.update(
             req.body,
-            {where: {id: req.params.id}}
-            );
+            {where : {id: req.params.id}}
+        )
 
-        if(response[0] > 0) { 
+        if(response[0] > 0){
             res.status(204).end()
-        }
-        else { 
+        }else{
             res.status(404).end()
         }
     }
-    catch(error){
-        console.error(error);
-        res.status(500).send(error);
+    catch(error) {
+        console.error(error)
+        // HTTP 500: Internal Server Error
+        res.status(500).send(error)
     }
 }
 
-controller.delete = async(req, res) => {
-    try{
-        const response = await Professor.destroy(
-            {where: {id: req.params.id}}
-            );
-
-        if(response) {
-            res.status(204).end()
-        }
-        else { 
-            res.status(404).end()
-        }
-    }
-    catch(error){
-        console.error(error);
+controller.delete = async (req, res) =>{
+    try {
         
-        res.status(500).send(error);
+        const response = await Professor.destroy(
+            {
+                where: {id : req.params.id}
+            }
+        )
+
+        if(response){
+             // HTTP 204: OK (implícito)
+            res.status(204).end()
+        }else{
+            res.status(404).end()
+        }
+
+    } catch(error) {
+        console.error(error)
+        // HTTP 500: Internal Server Error
+        res.status(500).send(error)
     }
 }
 
-module.exports = controller;
+module.exports = controller

@@ -1,0 +1,1 @@
+npx sequelize-cli model:generate --name Teste --attributes id:integer,curso_id:integer,professor_id:integer,nome:string,dia_semana:tinyint,horario_ini:time,horario_fim:time,data_ini:dateonly,data_fim:dateonly

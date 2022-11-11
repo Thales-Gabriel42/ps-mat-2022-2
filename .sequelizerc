@@ -1,5 +1,4 @@
-//Configuração para poder achas as configs do JS pq mudamos o arquiso JSON da pasta config pra JS
-const path = require('path');
+const path = require('path')
 
 module.exports = {
     config: path.resolve('config', 'config.js')

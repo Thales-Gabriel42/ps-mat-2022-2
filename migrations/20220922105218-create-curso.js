@@ -10,21 +10,21 @@ module.exports = {
       },
       sigla: {
         type: Sequelize.CHAR(5),
-        allowNull: false
+        unique: true
       },
       descricao: {
         type: Sequelize.STRING(50),
         allowNull: false
       },
       duracao_meses: {
-        type: Sequelize.TINYINT(1),
+        type: Sequelize.TINYINT,
         allowNull: false,
-        default: 6
+        defaultValue: 6
       },
       carga_horaria: {
-        type: Sequelize.TINYINT(1),
+        type: Sequelize.TINYINT,
         allowNull: false,
-        default: 80
+        defaultValue: 80
       },
       valor_total: {
         type: Sequelize.DECIMAL(18, 2),
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('cursos');
+    await queryInterface.dropTable('Cursos');
   }
 };

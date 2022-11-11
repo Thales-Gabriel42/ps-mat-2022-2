@@ -1,12 +1,11 @@
 require('dotenv').config()
 
-//Desestruturação
-const {
-  APP_DB_HOST,
+const { 
+  APP_DB_HOST, 
   APP_DB_NAME, 
   APP_DB_USER, 
-  APP_DB_PASS
-} = process.env;
+  APP_DB_PASS 
+} = process.env
 
 module.exports = {
   "development": {
