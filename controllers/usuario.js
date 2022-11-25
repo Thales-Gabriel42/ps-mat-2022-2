@@ -213,7 +213,7 @@ controller.login = async (req, res) => {
                 res.cookie('app-data', token, {
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'lax'
+                    sameSite: 'None'
                 }).status(200).json({auth: true})
             }
             else {  // Senha inválida
