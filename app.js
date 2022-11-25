@@ -22,8 +22,11 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// origin é pra aceitar requisições da origem passada
 const cors = require('cors')
-app.use(cors())
+app.use(cors({
+    origin: 'https://agoravai-thales.onrender.com'
+}))
 
 app.use(logger('dev'));
 app.use(express.json());
