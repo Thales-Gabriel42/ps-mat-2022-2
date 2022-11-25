@@ -209,7 +209,11 @@ controller.login = async (req, res) => {
                     { expiresIn: '8h' } 
                 )
                 // HTTP 200: OK (implícito)
-                res.json({ auth: true, token })
+                // res.json({ auth: true, token })
+                res.cookie('app-data', token, {
+                    httpOnly: true,
+                    secure: true 
+                }).status(200).json({auth: true})
             }
             else {  // Senha inválida
                 // HTTP 401: Unauthorized
@@ -222,6 +226,10 @@ controller.login = async (req, res) => {
         // HTTP 500: Internal Server Error
         res.status(500).send(error)
     }
+}
+
+controller.logout = (req, res) => {
+    res.clearCookie('app-data').status(200).json({auth: false})
 }
 
 module.exports = controller
