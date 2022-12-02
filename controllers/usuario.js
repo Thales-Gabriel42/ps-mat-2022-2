@@ -210,11 +210,15 @@ controller.login = async (req, res) => {
                 )
                 // HTTP 200: OK (implícito)
                 // res.json({ auth: true, token })
-                res.cookie('app-data', token, {
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: 'None'
-                }).status(200).json({auth: true})
+                // res.cookie('app-data', token, {
+                //     httpOnly: true,
+                //     secure: true,
+                //     sameSite: 'None'
+                // }).status(200).json({auth: true})
+
+                // Token retornando em um cookie seguro (HTTP only)
+                res.setHeader('Set-Cookie', 
+                    `app-data=${token}; Domain=agoravai-thales.onrender.com; SameSite=None; Secure; Path=/; HttpOnly`).status(200).json({auth: true})
             }
             else {  // Senha inválida
                 // HTTP 401: Unauthorized

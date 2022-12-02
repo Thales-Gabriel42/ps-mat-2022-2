@@ -25,7 +25,7 @@ var app = express();
 // origin é pra aceitar requisições da origem passada
 const cors = require('cors')
 app.use(cors({
-    origin: 'https://agoravai-thales2.onrender.com',
+    origin: true,
     credentials: true
 }))
 
